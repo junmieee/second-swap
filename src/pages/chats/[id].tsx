@@ -2,7 +2,7 @@ import type { NextPage } from "next";
 
 const ChatDetail: NextPage = () => {
     return (
-        <div className="py-10 px-4 space-y-4">
+        <div className="py-10 pb-16 px-4 space-y-4">
             <div className="flex items-start space-x-2">
                 <div className="w-8 h-8 rounded-full bg-slate-400" />
                 <div className="w-1/2 text-sm text-gray-700 p-2 border-gray-300 border rounded-md">안녕하세요. 얼마에 파시나요?</div>
