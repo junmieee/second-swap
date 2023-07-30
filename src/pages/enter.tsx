@@ -1,6 +1,6 @@
-import Button from "@/components/button";
-import Input from "@/components/input";
-import useMutation from "@/libs/client/useMutation";
+import Button from "src/components/button";
+import Input from "src/components/input";
+import useMutation from "src/libs/client/useMutation";
 import { NextPage } from "next";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
