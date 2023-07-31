@@ -11,8 +11,18 @@ interface EnterForm {
     phone?: string;
 }
 
+interface TokenForm {
+    token: string;
+}
+
+interface MutationResult {
+    ok: boolean;
+}
+
+
 const Enter: NextPage = () => {
-    const [enter, { loading, data, error }] = useMutation('/api/users/enter');
+    const [enter, { loading, data, error }] =
+        useMutation<MutationResult>("/api/users/enter");
     const [Loading, setLoading] = useState(false)
     const { register, handleSubmit, reset } = useForm<EnterForm>();
     const [method, setMethod] = useState<"email" | "phone">("email");
@@ -24,8 +34,9 @@ const Enter: NextPage = () => {
         reset();
         setMethod("phone");
     }
-    const onValid = (data: EnterForm) => {
-        enter(data)
+    const onValid = (validForm: EnterForm) => {
+        if (loading) return;
+        enter(validForm);
     };
     console.log(loading, data, error)
     return (

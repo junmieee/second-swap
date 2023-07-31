@@ -17,7 +17,7 @@ async function handler(
   const payload = Math.floor(100000 + Math.random() * 900000) + "";
   const token = await client.token.create({
     data: {
-      payload: payload,
+      payload,
       user: {
         connectOrCreate: {
           where: {
@@ -32,54 +32,21 @@ async function handler(
     },
   });
 
-
-  /* if (email) {
-    user = await client.user.findUnique({
-      where: {
-        email,
-      },
-    });
-    if (user) console.log("found it.");
-    if (!user) {
-      console.log("Did not find. Will create.");
-      user = await client.user.create({
-        data: {
-          name: "Anonymous",
-          email,
-        },
-      });
-    }
-    console.log(user);
-  }
   if (phone) {
-    user = await client.user.findUnique({
-      where: {
-        phone: +phone,
-      },
-    });
-    if (user) console.log("found it.");
-    if (!user) {
-      console.log("Did not find. Will create.");
-      user = await client.user.create({
-        data: {
-          name: "Anonymous",
-          phone: +phone,
-        },
-      });
-    }
-    console.log(user);
-  } */
-  if (phone) {
-    await twilioClient.messages.create({
+    const message = await twilioClient.messages.create({
       messagingServiceSid: process.env.TWILIO_MSID,
       to: process.env.MY_PHONE!,
       body: `휴대폰 로그인을 위한 토큰은 ${payload}입니다.`
-    })
-  } else if (email) {
+    });
+    console.log(message);
+  }
+
+
+  if (email) {
     const mailOptions = {
       from: process.env.MAIL_ID,
       to: email,
-      subject: "SWAP MARTKET Authentication Email",
+      subject: "Nomad Carrot Authentication Email",
       text: `이메일 로그인을 위한 토큰은 ${payload}입니다.`,
     };
     const result = await smtpTransport.sendMail(
@@ -95,10 +62,9 @@ async function handler(
       }
     );
     smtpTransport.close();
-    console.log(result);
+    console.log(result, payload);
   }
-  return res.json({
-    ok: true,
-  });
+
+  return res.json({ ok: true });
 }
 export default withHandler("POST", handler);
