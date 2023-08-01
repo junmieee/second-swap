@@ -4,7 +4,7 @@
 /node_modules
 /.pnp
 .pnp.js
-
+ 
 # testing
 /coverage
 
@@ -38,3 +38,4 @@ next-env.d.ts
 
 # dotenv environment variable files
 .env
+ ㅡ 
